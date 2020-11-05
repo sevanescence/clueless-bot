@@ -1,0 +1,25 @@
+{
+  "name": "clueless-bot",
+  "version": "1.0.0",
+  "description": "Bot for the Coomer Den server. This bot may not  be server-scalable.",
+  "main": "src/app.js",
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "dotenv": "^8.2.0",
+    "youtube-search": "^1.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MakotoMiyamoto/clueless-bot.git"
+  },
+  "author": "MakotoMiyamoto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MakotoMiyamoto/clueless-bot/issues"
+  },
+  "homepage": "https://github.com/MakotoMiyamoto/clueless-bot#readme"
+}
