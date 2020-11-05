@@ -74,15 +74,14 @@ class CommandManager {
     // in a later update, handle fetching the label here, instead.
     let cmd = this.commands.get(label);
     if (cmd) {
+      let args = this.handleArgs(cmd, msg);
       if (msg.channel.type !== 'dm') {
         let guild = msg.guild;
         let guildMember = guild.members.resolve(msg.author.id);
         if (guildMember.hasPermission(cmd.permission)) {
-          let args = this.handleArgs(cmd, msg);
           cmd.execute(args, msg, client);
         }
       } else if (cmd.canDM) {
-        let args = this.handleArgs(cmd, msg);
         cmd.execute(args, msg, client);
       }
       // // player doesnt have permission

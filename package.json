@@ -6,11 +6,13 @@
   "dependencies": {
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
+    "firebase-admin": "^9.3.0",
     "youtube-search": "^1.1.4"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "nodemon src/app.js"
+    "test": "nodemon --ignore ./cache/ src/app.js",
+    "prod": "cross-env NODE_ENV=production node src/app"
   },
   "repository": {
     "type": "git",
