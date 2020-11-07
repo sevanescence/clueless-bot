@@ -3,15 +3,23 @@ const dotenv = require('dotenv');
 dotenv.config();
 const path = require('path');
 
-const client = new Discord.Client();
 const CommandManager = require('./models/command');
 const ReactionListener = require('./events/reactionlistener');
 const CacheCleaner = require('./services/cachecleaner');
+
+const client = new Discord.Client();
 
 // TODO: change cache to network reaction thing
 
 let mode = '';
 let commandManager = new CommandManager();
+let cacheClearTask;
+
+function clearCache() {
+  CacheCleaner.clearCache('youtubeNavigationCache').then(deletedEntries => {
+    console.log(`Deleted ${deletedEntries} entries from cache.`);
+  });
+}
 
 client.once('ready', () => {
   mode = process.env.NODE_ENV || 'development';
@@ -24,9 +32,15 @@ client.once('ready', () => {
   ReactionListener.init(client).then(() => {
     console.log('Event listeners initialized.');
   });
-  CacheCleaner.clearCache().then(deletedEntires => {
-    console.log(`Deleted ${deletedEntires} entires from cache.`);
-  });
+  clearCache();
+  cacheClearTask = setInterval(() => {
+    clearCache();
+  }, 1_800_000);
+  CacheCleaner.clearCache('voiceSongQueue');
+});
+
+client.on('disconnect', () => {
+  clearInterval(cacheClearTask);
 });
 
 const cmdPrefix = process.env.PREFIX || '.c';

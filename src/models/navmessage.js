@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
 const firebase = require('../services/firebase');
 const db = firebase.firestore();
 const youtubeCacheDoc = db.collection('youtubeNavigationCache');
@@ -38,14 +35,7 @@ class NavigationMessage {
     });
   }
   save() {
-    let json = {
-      resultLinks: this.resultLinks,
-      messageID: this.messageID,
-      authorID: this.authorID,
-      currentDisplayedLink: this.currentDisplayedLink
-    };
-    // fs.writeFileSync(path.join(dir, `${this.messageID}.json`), json);
-    return youtubeCacheDoc.doc(this.messageID).set(json);
+    return youtubeCacheDoc.doc(this.messageID).set(Object.assign({}, this));
   }
 }
 

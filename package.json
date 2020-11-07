@@ -4,10 +4,13 @@
   "description": "Bot for the Coomer Den server. This bot may not  be server-scalable.",
   "main": "src/app.js",
   "dependencies": {
+    "@discordjs/opus": "^0.3.3",
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
+    "ffmpeg-static": "^4.2.7",
     "firebase-admin": "^9.3.0",
-    "youtube-search": "^1.1.4"
+    "youtube-search": "^1.1.4",
+    "ytdl-core": "^4.0.3"
   },
   "devDependencies": {},
   "scripts": {

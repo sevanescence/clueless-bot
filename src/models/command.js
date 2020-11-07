@@ -6,15 +6,15 @@ const commandTemplate = {
   label: 'test',
   description: 'test',
   args: 0,
-  permission: 8,
+  permission: Discord.Permissions.FLAGS.SEND_MESSAGES,
   canDM: true,
   /**
    * 
    * @param {Array<String>} args 
    * @param {Discord.Message} msg 
-   * @param {Discord.Client} client 
+   * @param {Discord.Client} client
    */
-  execute (args, msg, client) {}
+  execute (args, msg, Client) {}
 }
 
 class CommandManager {
@@ -32,8 +32,10 @@ class CommandManager {
     return new Promise(res => {
       const commandFiles = fs.readdirSync(dir);
       for (let file of commandFiles) {
-        let command = require(path.join(dir, file));
-        this.commands.set(command.label, command);
+        if (file.endsWith('.js')) {
+          let command = require(path.join(dir, file));
+          this.commands.set(command.label, command);
+        }
       }
       res();
     });
